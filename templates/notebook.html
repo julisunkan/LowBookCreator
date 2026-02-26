@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Notebook - L-C Book Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+        <a href="/" class="text-indigo-600 hover:underline mb-6 inline-block">&larr; Back to Home</a>
+        <h1 class="text-3xl font-bold mb-8">Create Your Notebook</h1>
+        
+        <form method="POST" class="space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Page Count</label>
+                    <input type="number" name="pages" value="100" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Trim Size</label>
+                    <select name="trim" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        <option value="6x9">6 x 9 inches</option>
+                        <option value="5x8">5 x 8 inches</option>
+                        <option value="5.5x8.5">5.5 x 8.5 inches</option>
+                        <option value="7x10">7 x 10 inches</option>
+                        <option value="8x10">8 x 10 inches</option>
+                        <option value="8.5x11">8.5 x 11 inches</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Header Text (Optional)</label>
+                <div class="flex gap-2">
+                    <input type="text" name="header" id="headerInput" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                    <button type="button" onclick="randomTitle()" class="mt-1 bg-gray-200 px-3 rounded hover:bg-gray-300">Random</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Layout</label>
+                    <select name="layout" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        <option value="lines">Lines</option>
+                        <option value="dot_grid">Dot Grid</option>
+                        <option value="graph">Graph Paper</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Journal Prompts</label>
+                    <select name="category" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        <option value="None">None</option>
+                        <option value="Gratitude">Gratitude</option>
+                        <option value="Productivity">Productivity</option>
+                        <option value="Self-Care">Self-Care</option>
+                        <option value="Creativity">Creativity</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <input type="checkbox" name="show_page_numbers" id="page_nums" checked class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="page_nums" class="ml-2 block text-sm text-gray-900">Include page numbers</label>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Generate Preview</button>
+        </form>
+    </div>
+
+    <script>
+        async function randomTitle() {
+            const res = await fetch('/generate-title');
+            const data = await res.json();
+            document.getElementById('headerInput').value = data.title;
+        }
+    </script>
+</body>
+</html>

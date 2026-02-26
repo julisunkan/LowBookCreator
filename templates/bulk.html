@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Upload - L-C Book Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+        <a href="/" class="text-indigo-600 hover:underline mb-6 inline-block">&larr; Back to Home</a>
+        <h1 class="text-3xl font-bold mb-4">Bulk Generation</h1>
+        <p class="text-gray-600 mb-8">Upload a CSV file with the following columns: <code class="bg-gray-100 px-1">title, header, pages, trim_width, trim_height</code></p>
+        
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+                <input type="file" name="csv_file" accept=".csv" required class="hidden" id="csvFile">
+                <label for="csvFile" class="cursor-pointer">
+                    <div class="text-indigo-600 font-bold text-lg mb-2">Click to select CSV</div>
+                    <div class="text-sm text-gray-500">Only .csv files accepted</div>
+                </label>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Generate Bulk ZIP</button>
+        </form>
+    </div>
+</body>
+</html>

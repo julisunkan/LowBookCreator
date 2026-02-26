@@ -106,7 +106,3 @@ def generate_coloring_pdf(filename, image_paths, trim_width, trim_height):
             c.drawImage(img_path, x, y, width=draw_w, height=draw_h)
             c.showPage()
     c.save()
-
-def calculate_spine_width(pages):
-    # KDP Standard White Paper (approx 0.002252 inches per page)
-    return round(int(pages) * 0.002252, 4)

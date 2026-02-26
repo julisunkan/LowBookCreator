@@ -81,40 +81,10 @@
                 <a href="/bulk" class="block text-center bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 rounded-2xl transition-all shadow-lg shadow-indigo-200">Upload CSV</a>
             </div>
         </div>
-
-        <div class="mt-20 glass-card p-12 rounded-[3rem] animate-fadeIn border-2 border-green-50">
-            <h2 class="text-3xl font-black mb-8 text-center bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent">Spine Width Calculator</h2>
-            <div class="flex flex-col md:flex-row items-center gap-10">
-                <div class="flex-1">
-                    <p class="text-gray-600 mb-6 text-lg">Quick reference for standard KDP trim sizes. Ensure your interior fits perfectly.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-green-100 text-green-700 rounded-full font-bold">6 x 9</span>
-                        <span class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full font-bold">8.5 x 11</span>
-                        <span class="px-4 py-2 bg-red-100 text-red-700 rounded-full font-bold">5 x 8</span>
-                        <span class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full font-bold">7 x 10</span>
-                    </div>
-                </div>
-                <div class="flex-1 w-full">
-                    <div class="p-8 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
-                        <label class="block text-sm font-black text-gray-700 mb-3 uppercase tracking-widest">Page Count</label>
-                        <div class="flex gap-4">
-                            <input type="number" id="spinePages" placeholder="120" class="flex-1 border-2 border-gray-200 rounded-2xl px-6 py-4 focus:border-green-500 focus:outline-none transition-all text-lg font-bold">
-                            <button onclick="calcSpine()" class="bg-black text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform active:scale-95 shadow-xl">Calculate</button>
-                        </div>
-                        <p id="spineResult" class="mt-6 text-2xl font-black text-green-600 text-center"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <script>
-        async function calcSpine() {
-            const pages = document.getElementById('spinePages').value;
-            const res = await fetch(`/spine-calculator?pages=${pages}`);
-            const data = await res.json();
-            document.getElementById('spineResult').innerText = `Spine Width: ${data.spine_width} inches`;
-        }
+        // Scripts removed
     </script>
 </body>
 </html>

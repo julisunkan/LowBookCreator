@@ -3,7 +3,7 @@ import uuid
 import pandas as pd
 from flask import Flask, render_template, request, send_from_directory, jsonify, redirect, url_for
 from database import get_db_connection, init_db
-from utils import generate_pdf, validate_trim_size, calculate_spine_width, process_coloring_image, generate_coloring_pdf
+from utils import generate_pdf, validate_trim_size, process_coloring_image, generate_coloring_pdf
 from models import generate_random_title
 import zipfile
 
@@ -133,12 +133,6 @@ def api_generate_prompts():
     prompts = [row['prompt'] for row in rows]
     conn.close()
     return jsonify({'prompts': prompts})
-
-@app.route('/spine-calculator')
-def spine_calculator():
-    pages = request.args.get('pages', 0)
-    width = calculate_spine_width(pages)
-    return jsonify({'spine_width': width})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

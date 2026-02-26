@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coloring Book - L-C Book Creator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body class="bg-gray-50 min-h-screen p-8">
-    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
-        <a href="/" class="text-indigo-600 hover:underline mb-6 inline-block">&larr; Back to Home</a>
-        <h1 class="text-3xl font-bold mb-8">Coloring Book Creator</h1>
+<body class="bg-gray-50 min-h-screen p-8 grid-bg">
+    <div class="max-w-2xl mx-auto glass-card p-12 rounded-[2rem] shadow-2xl animate-fadeIn">
+        <a href="/" class="text-red-600 font-bold hover:translate-x-[-4px] transition-transform inline-flex items-center gap-2 mb-8">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Home
+        </a>
+        <h1 class="text-4xl font-black mb-10 text-gray-900 tracking-tight">Coloring <span class="text-red-500">Book</span> Creator</h1>
         
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
-            <div class="grid grid-cols-2 gap-4">
+        <form method="POST" enctype="multipart/form-data" class="space-y-8">
+            <div class="grid grid-cols-1 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Trim Size</label>
-                    <select name="trim" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                    <label class="block text-sm font-black text-gray-700 uppercase tracking-widest mb-2">Trim Size</label>
+                    <select name="trim" class="block w-full border-2 border-gray-100 rounded-2xl px-6 py-4 focus:border-red-500 focus:outline-none transition-all font-bold appearance-none bg-white">
                         <option value="8.5x11">8.5 x 11 inches</option>
                         <option value="8x10">8 x 10 inches</option>
                         <option value="6x9">6 x 9 inches</option>
@@ -23,18 +27,18 @@
                 </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Upload Images (JPG/PNG)</label>
-                <input type="file" name="images" multiple accept="image/*" required class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                <p class="mt-2 text-xs text-gray-500">Each image will be placed on its own page, converted to grayscale/outline style if possible.</p>
+            <div class="p-8 bg-red-50 rounded-3xl border-2 border-dashed border-red-200 text-center">
+                <label class="block text-sm font-black text-red-700 uppercase tracking-widest mb-4">Upload Images (JPG/PNG)</label>
+                <input type="file" name="images" multiple accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-red-600 file:text-white hover:file:bg-red-700 transition-all cursor-pointer">
+                <p class="mt-4 text-xs font-bold text-red-400">Each image becomes a unique coloring page.</p>
             </div>
 
-            <div class="flex items-center">
-                <input type="checkbox" name="outline_effect" id="outline_effect" checked class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                <label for="outline_effect" class="ml-2 block text-sm text-gray-900">Apply coloring book effect (experimental)</label>
+            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border-2 border-gray-100">
+                <input type="checkbox" name="outline_effect" id="outline_effect" checked class="h-6 w-6 text-red-600 border-gray-300 rounded-lg focus:ring-red-500">
+                <label for="outline_effect" class="block text-sm font-bold text-gray-700">Apply artistic coloring book filter</label>
             </div>
 
-            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Generate Coloring Book</button>
+            <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-red-200 text-xl hover:scale-[1.02] active:scale-[0.98]">Generate Coloring Book</button>
         </form>
     </div>
 </body>

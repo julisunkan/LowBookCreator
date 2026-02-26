@@ -3,7 +3,7 @@ import uuid
 import pandas as pd
 from flask import Flask, render_template, request, send_from_directory, jsonify, redirect, url_for
 from database import get_db_connection, init_db
-from utils import generate_pdf, validate_trim_size, calculate_spine_width
+from utils import generate_pdf, validate_trim_size, calculate_spine_width, process_coloring_image, generate_coloring_pdf
 from models import generate_random_title
 import zipfile
 
@@ -15,6 +15,42 @@ if not os.path.exists(EXPORTS_DIR):
 
 # Initialize DB on start
 init_db()
+
+@app.route('/coloring', methods=['GET', 'POST'])
+def coloring():
+    if request.method == 'POST':
+        images = request.files.getlist('images')
+        trim = request.form.get('trim', '8.5x11').split('x')
+        width, height = float(trim[0]), float(trim[1])
+        outline = 'outline_effect' in request.form
+        
+        processed_paths = []
+        for img in images:
+            if img.filename == '': continue
+            ext = os.path.splitext(img.filename)[1]
+            temp_name = f"temp_{uuid.uuid4()}{ext}"
+            temp_path = os.path.join(EXPORTS_DIR, temp_name)
+            img.save(temp_path)
+            
+            proc_name = f"proc_{uuid.uuid4()}.png"
+            proc_path = os.path.join(EXPORTS_DIR, proc_name)
+            process_coloring_image(temp_path, proc_path, outline=outline)
+            processed_paths.append(proc_path)
+            os.remove(temp_path)
+            
+        if processed_paths:
+            filename = f"coloring_{uuid.uuid4()}.pdf"
+            filepath = os.path.join(EXPORTS_DIR, filename)
+            generate_coloring_pdf(filepath, processed_paths, width, height)
+            
+            # Cleanup processed images
+            for p in processed_paths:
+                try: os.remove(p)
+                except: pass
+                
+            return redirect(url_for('preview', filename=filename))
+            
+    return render_template('coloring.html')
 
 @app.route('/')
 def index():

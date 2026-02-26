@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coloring Book - L-C Book Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+        <a href="/" class="text-indigo-600 hover:underline mb-6 inline-block">&larr; Back to Home</a>
+        <h1 class="text-3xl font-bold mb-8">Coloring Book Creator</h1>
+        
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Trim Size</label>
+                    <select name="trim" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
+                        <option value="8.5x11">8.5 x 11 inches</option>
+                        <option value="8x10">8 x 10 inches</option>
+                        <option value="6x9">6 x 9 inches</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Upload Images (JPG/PNG)</label>
+                <input type="file" name="images" multiple accept="image/*" required class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <p class="mt-2 text-xs text-gray-500">Each image will be placed on its own page, converted to grayscale/outline style if possible.</p>
+            </div>
+
+            <div class="flex items-center">
+                <input type="checkbox" name="outline_effect" id="outline_effect" checked class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="outline_effect" class="ml-2 block text-sm text-gray-900">Apply coloring book effect (experimental)</label>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Generate Coloring Book</button>
+        </form>
+    </div>
+</body>
+</html>

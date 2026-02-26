@@ -69,6 +69,44 @@ def generate_pdf(filename, pages, header, trim_width, trim_height, layout='lines
         
     c.save()
 
+from PIL import Image, ImageOps, ImageFilter
+
+def process_coloring_image(image_path, output_path, outline=True):
+    with Image.open(image_path) as img:
+        img = img.convert('L') # Grayscale
+        if outline:
+            # Simple edge detection for coloring book effect
+            img = img.filter(ImageFilter.FIND_EDGES)
+            img = ImageOps.invert(img)
+            # Enhance contrast
+            img = ImageOps.autocontrast(img, cutoff=2)
+        img.save(output_path)
+
+def generate_coloring_pdf(filename, image_paths, trim_width, trim_height):
+    width = float(trim_width) * inch_unit
+    height = float(trim_height) * inch_unit
+    c = canvas.Canvas(filename, pagesize=(width, height))
+    
+    for img_path in image_paths:
+        # Calculate aspect ratio to fit image on page
+        with Image.open(img_path) as img:
+            img_w, img_h = img.size
+            img_aspect = img_w / img_h
+            page_aspect = width / height
+            
+            if img_aspect > page_aspect:
+                draw_w = width - 1 * inch_unit
+                draw_h = draw_w / img_aspect
+            else:
+                draw_h = height - 1 * inch_unit
+                draw_w = draw_h * img_aspect
+                
+            x = (width - draw_w) / 2
+            y = (height - draw_h) / 2
+            c.drawImage(img_path, x, y, width=draw_w, height=draw_h)
+            c.showPage()
+    c.save()
+
 def calculate_spine_width(pages):
     # KDP Standard White Paper (approx 0.002252 inches per page)
     return round(int(pages) * 0.002252, 4)

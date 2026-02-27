@@ -25,3 +25,5 @@ A Flask web application for generating KDP-ready low-content book PDFs (notebook
 - [x] 5. Add background cleanup task for uploaded/generated files
 - [x] 6. Generate requirements.txt
 - [x] 7. Create Microsoft Store description and keywords
+- [x] 8. Rename app to "Low Content Book Creator"
+- [x] 9. Generate new high-quality PWA icons with book symbol

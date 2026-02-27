@@ -1,6 +1,8 @@
 import os
 import uuid
 import pandas as pd
+import time
+from threading import Thread
 from flask import Flask, render_template, request, send_from_directory, jsonify, redirect, url_for
 from database import get_db_connection, init_db
 from utils import generate_pdf, validate_trim_size, process_coloring_image, generate_coloring_pdf
@@ -12,6 +14,26 @@ EXPORTS_DIR = 'exports'
 
 if not os.path.exists(EXPORTS_DIR):
     os.makedirs(EXPORTS_DIR)
+
+def cleanup_old_files():
+    """Background task to delete files older than 1 hour in EXPORTS_DIR."""
+    while True:
+        try:
+            now = time.time()
+            one_hour_ago = now - 3600
+            for filename in os.listdir(EXPORTS_DIR):
+                file_path = os.path.join(EXPORTS_DIR, filename)
+                if os.path.isfile(file_path):
+                    file_time = os.path.getmtime(file_path)
+                    if file_time < one_hour_ago:
+                        os.remove(file_path)
+        except Exception as e:
+            print(f"Error during cleanup: {e}")
+        time.sleep(600) # Run every 10 minutes
+
+# Start cleanup thread
+cleanup_thread = Thread(target=cleanup_old_files, daemon=True)
+cleanup_thread.start()
 
 # Initialize DB on start
 init_db()
